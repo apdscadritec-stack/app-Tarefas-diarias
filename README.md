@@ -1,5 +1,26 @@
 # Welcome to your Expo app 👋
 
+## Firebase e Firestore
+
+O aplicativo usa o Firebase Authentication e o Firestore por meio do Firebase JavaScript SDK.
+
+Estrutura dos dados:
+
+- `users/{uid}`: perfil, assinatura e os quatro links do usuário.
+- `users/{uid}/people/{personId}`: pessoas cadastradas.
+- `users/{uid}/tasks/{taskId}`: tarefas, incluindo data, status, cor, ícone e link executor.
+
+Ao registrar uma conta, o documento `users/{uid}` é criado automaticamente. As telas principal e de link compartilhado escutam as coleções de tarefas em tempo real com `onSnapshot`.
+
+Para habilitar o banco no projeto Firebase:
+
+1. Abra o projeto `sistema-tarefasdiarias` no [Firebase Console](https://console.firebase.google.com/).
+2. Em **Build > Firestore Database**, clique em **Create database** e escolha a região.
+3. Em **Build > Authentication > Sign-in method**, habilite **Email/Password**.
+4. Configure as regras do Firestore antes de publicar o aplicativo. A regra de produção deve permitir que cada usuário acesse apenas `users/{uid}` e suas subcoleções. O fluxo de links compartilhados precisa de uma regra específica ou de uma função backend para não expor todos os perfis.
+
+As credenciais podem ser fornecidas pelas variáveis `EXPO_PUBLIC_FIREBASE_*` usadas em `src/config/firebase.ts`. Não coloque chaves privadas ou `STRIPE_SECRET_KEY` no código do aplicativo.
+
 This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
 
 ## Get started
